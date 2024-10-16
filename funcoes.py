@@ -64,3 +64,25 @@ def afundados (frota, tabuleiro):
                 count = 0
                 entrou = 0
     return quantos_afundaram
+
+def posicao_valida (frota, linha, coluna, orientacao, tamanho):
+    resposta = True
+    barco = define_posicoes (linha, coluna, orientacao, tamanho)
+    if frota == {}:
+        for coordinates in barco:
+            if coordinates [0] > 9:
+                resposta = False
+            if coordinates [1] > 9:
+                resposta = False      
+    else:
+        for navio, valor in frota.items():
+            for coordenadas in valor:
+                for chave in coordenadas:
+                    for coordinates in barco:
+                        if chave [0] == coordinates [0] and chave [1] == coordinates [1]:
+                            resposta = False 
+                        if coordinates [0] > 9:
+                            resposta = False
+                        if coordinates [1] > 9:
+                            resposta = False           
+    return resposta
