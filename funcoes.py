@@ -84,5 +84,10 @@ def posicao_valida (frota, linha, coluna, orientacao, tamanho):
                         if coordinates [0] > 9:
                             resposta = False
                         if coordinates [1] > 9:
-                            resposta = False           
+                            resposta = False
+        for coordinates in barco:
+            if coordinates [0] > 9:
+                resposta = False
+            if coordinates [1] > 9:
+                resposta = False              
     return resposta
