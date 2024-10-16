@@ -17,7 +17,7 @@ def preenche_frota (frota, nome, linha, coluna, orientacao, tamanho):
     if nome in frota:
         frota [nome].append (posicao)
     else:
-        frota [nome] = posicao
+        frota [nome] = [posicao]
     return frota
 
 
