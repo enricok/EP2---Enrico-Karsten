@@ -45,4 +45,22 @@ def posiciona_frota (frota):
             for chave in coordenadas:
                 tabuleiro [chave[0]][chave[1]] = 1
     return tabuleiro
-        
+
+def afundados (frota, tabuleiro):
+    count = 0
+    entrou = 0
+    quantos_afundaram = 0
+    for navio, valor in frota.items():
+        for coordenadas in valor:
+            for chave in coordenadas:
+                if tabuleiro [chave [0]][chave[1]] == "X":
+                    entrou += 1
+                count += 1
+            if count == entrou:
+                quantos_afundaram += 1
+                count = 0
+                entrou = 0
+            else:
+                count = 0
+                entrou = 0
+    return quantos_afundaram
