@@ -1,3 +1,12 @@
+from funcoes import posicao_valida
+from funcoes import define_posicoes
+from funcoes import preenche_frota
+from funcoes import afundados
+from funcoes import posiciona_frota
+from funcoes import faz_jogada
+from funcoes import monta_tabuleiros
+import random
+
 frota = {
     "porta-aviões":[],
     "navio-tanque":[],
@@ -103,17 +112,25 @@ jogando = True
 
 count = 0
 
+count_oponente = 0
+
+lista_oponente = []
+
+lista = []
+
 for navio, valor in frota_oponente.items():
     for coordenadas in valor:
         count += 1
 
-lista = []
+for navio, valor in frota.items():
+    for coordenadas in valor:
+        count_oponente += 1
+    
+tabuleiro_pronto = monta_tabuleiros (tabuleiro_jogador, tabuleiro_oponente)
+        
+print (tabuleiro_pronto)
 
 while jogando == True:
-
-    tabuleiro_pronto = monta_tabuleiros (tabuleiro_jogador, tabuleiro_oponente)
-        
-    print (tabuleiro_pronto)
 
     linha = int(input ("Jogador, qual linha deseja atacar? "))
 
@@ -128,6 +145,7 @@ while jogando == True:
         coluna = int(input ("Jogador, qual coluna deseja atacar? "))
 
     while [linha, coluna] in lista:
+
         print (f"A posição linha {linha} e coluna {coluna} já foi informada anteriormente!")
         linha = int(input ("Jogador, qual linha deseja atacar? "))
 
@@ -151,3 +169,27 @@ while jogando == True:
         print ("Parabéns! Você derrubou todos os navios do seu oponente!")
         jogando = False
         break
+        
+    linha = random.randint (0, 9)
+    coluna = random.randint (0, 9)
+
+    while [linha, coluna] in lista_oponente:
+        linha = random.randint (0, 9)
+        coluna = random.randint (0, 9)
+    
+    print (f'Seu oponente está atacando na linha {linha} e coluna {coluna}')
+
+    lista_oponente.append ([linha, coluna])
+
+    tabuleiro_jogador = faz_jogada (tabuleiro_jogador, linha, coluna)
+
+    quantos_afundaram = afundados (frota, tabuleiro_jogador)
+
+    if count_oponente == quantos_afundaram:
+        print ('Xi! O oponente derrubou toda a sua frota =(')
+        jogando = False
+        break
+
+    tabuleiro_pronto = monta_tabuleiros (tabuleiro_jogador, tabuleiro_oponente)
+        
+    print (tabuleiro_pronto)
